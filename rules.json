@@ -1,0 +1,22 @@
+{
+  "/": {
+    "it-tools": {
+      "type": "opensource",
+      "method": "GET",
+      "rules": [
+        {
+          "rule": "<title>IT Tools - Handy online tools for developers</title>"
+        }
+      ]
+    },
+    "metabase": {
+      "type": "opensource",
+      "method": "GET",
+      "rules": [
+        {
+          "rule": "<title>metabase</title>"
+        }
+      ]
+    }
+  }
+}
