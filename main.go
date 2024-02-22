@@ -50,7 +50,7 @@ func identifyFingerprint(openedPorts []string, goRoutinePoolSize int) []string {
 								log.Printf("opened ports: %s, fingerprint is [%s], matched rule [%s], uri is %s",
 									openedPort, component, rule.Rule, httpPacket.Uri)
 								httpResponseMatchStatus = true
-								identifiedComponents = append(identifiedComponents, fmt.Sprintf("url: %s, component: %s", "http://"+openedPort+"/"+path, component))
+								identifiedComponents = append(identifiedComponents, fmt.Sprintf("url: %s, component: %s", "http://"+openedPort+path, component))
 							}
 							if rule.RuleRegexp.Match(httpsResponse) {
 								log.Printf("opened ports: %s, fingerprint is [%s], matched rule [%s], uri is %s",
@@ -66,7 +66,9 @@ func identifyFingerprint(openedPorts []string, goRoutinePoolSize int) []string {
 						<-ch
 					}(method, openedPort, path, component, matchedRules)
 				}
+				// 等待go routine pool执行完毕
 				wg.Wait()
+				close(ch)
 			}
 		}(path, componentsRules)
 		log.Printf("path: %s match completed", path)
